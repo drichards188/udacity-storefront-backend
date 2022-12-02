@@ -38,9 +38,9 @@ const create = async (req: Request, res: Response) => {
 }
 
 const productIndexRoutes = (app: express.Application) => {
-    app.post('/products', create)
+    app.post('/products', authJWT, create)
     app.get('/products/show', single)
-    app.get('/products', authJWT, index)
+    app.get('/products', index)
 }
 
 export default productIndexRoutes;
