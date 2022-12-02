@@ -1,7 +1,7 @@
 import express, {Request, Response} from "express";
 import {UserStore} from "../models/userModel";
-import {authJWT} from "../handlers/handleAuth";
 import bcrypt from 'bcrypt';
+import jsonwebtoken from "jsonwebtoken";
 
 const store = new UserStore();
 
@@ -31,10 +31,7 @@ const single = async (req: Request, res: Response) => {
 }
 
 const create = async (req: Request, res: Response) => {
-    const tokenHeader = req.headers['authorization'];
-    const token = tokenHeader!.split(' ');
-    const authCheck = authJWT(token[1]!);
-    if (authCheck) {
+    const secretKey = process.env.JWT_KEY!;
         const firstName = req.body.firstName;
         const lastName = req.body.lastName;
         const password = req.body.password;
@@ -44,13 +41,22 @@ const create = async (req: Request, res: Response) => {
                 res.json({msg: 'hash fail'});
             } else {
                 const resp = store.create(firstName, lastName, hashedPassword!);
-                res.json(resp);
+                const token = jsonwebtoken.sign({firstname: firstName, lastname: lastName}, secretKey);
+                res.json({msg: 'success', token: token});
             }
+
+    } else {
+            res.json({msg: 'please send all fields'})
         }
-    else
-        {
-            res.json({msg: 'auth fail'});
-        }
+}
+
+export const authJWT = (token: string) => {
+    const secretKey = process.env.JWT_KEY!;
+    const verifyResult = jsonwebtoken.verify(token, secretKey);
+    if (verifyResult) {
+        return true;
+    } else {
+        return false
     }
 }
 

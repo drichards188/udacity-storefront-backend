@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express'
 import bodyParser from 'body-parser'
-import productIndexRoutes from "./routes/productRoute";
-import userIndexRoutes from "./routes/userRoute";
-import orderIndexRoutes from "./routes/orderRoute";
+import productIndexRoutes from "./handlers/productRoute";
+import userIndexRoutes from "./handlers/userRoute";
+import orderIndexRoutes from "./handlers/orderRoute";
 import jsonwebtoken from "jsonwebtoken";
 
 export const app: express.Application = express()
