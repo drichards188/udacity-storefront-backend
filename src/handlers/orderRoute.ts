@@ -1,6 +1,6 @@
 import express, {Request, Response} from "express";
 import {OrderStore} from "../models/ordersModel";
-import {authJWT} from "../handlers/handleAuth";
+import {authJWT} from "./userRoute";
 
 const store = new OrderStore();
 

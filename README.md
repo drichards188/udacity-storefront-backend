@@ -7,9 +7,11 @@
 * run `npm install` in repo
 * create `.env` file at root. copy this into it `POSTGRES_HOST=127.0.0.1
   POSTGRES_DB=storefront
+  POSTGRES_DB_TEST=storefront_test
   POSTGRES_USER=drich
   POSTGRES_PASSWORD=password
-  JWT_KEY=1234`
+  JWT_KEY=1234
+  ENV=dev`
 * run `db-migrate db:create storefront` & `db-migrate db:create storefront_test`
 * run `db-migrate up`
 * start the project on port 3000 by running `npm start`

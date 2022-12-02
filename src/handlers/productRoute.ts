@@ -1,6 +1,6 @@
 import {ProductStore} from "../models/productModel";
 import express, {Request, Response} from "express";
-import {authJWT} from "../handlers/handleAuth";
+import {authJWT} from "./userRoute";
 
 const store = new ProductStore();
 
