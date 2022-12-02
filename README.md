@@ -10,7 +10,7 @@
   POSTGRES_USER=drich
   POSTGRES_PASSWORD=password
   JWT_KEY=1234`
-* run `db-migrate db:create storefront`
+* run `db-migrate db:create storefront` & `db-migrate db:create storefront_test`
 * run `db-migrate up`
 * start the project on port 3000 by running `npm start`
 * or test the project by running `npm test`
