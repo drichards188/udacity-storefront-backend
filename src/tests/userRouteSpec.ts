@@ -9,14 +9,14 @@ describe('test user route', () => {
         const resp = await request
             .get('/users')
             .set('Authorization', token)
-            .expect(200);
+            expect(resp.status).toBe(200);
     });
 
     it('should return a specific user', async () => {
         const resp = await request
             .get('/users/show?id=1')
             .set('Authorization', token)
-            .expect(200);
+            expect(resp.status).toBe(200);
     });
 
     it('should create the passed user', async () => {
@@ -30,6 +30,6 @@ describe('test user route', () => {
             .post('/users')
             .set('Authorization', token)
             .send(user)
-            .expect(200);
+            expect(resp.status).toBe(200);
     });
 });

@@ -8,13 +8,13 @@ describe('test product route', () => {
     it('should return all products', async () => {
         const resp = await request
             .get('/products')
-            .expect(200);
+            expect(resp.status).toBe(200);
     });
 
     it('should return a specific product', async () => {
         const resp = await request
             .get('/products/show?id=1')
-            .expect(200);
+            expect(resp.status).toBe(200);
     });
 
     it('should create the passed product', async () => {
@@ -27,6 +27,6 @@ describe('test product route', () => {
             .post('/products')
             .set('Authorization', token)
             .send(product)
-            .expect(200);
+            expect(resp.status).toBe(200);
     });
 })

@@ -54,18 +54,18 @@ export class OrderStore {
             const conn = await Client.connect();
             const sql = `INSERT INTO orders (userid, status) VALUES ('${userId}', 'active')`;
             const results = await conn.query(sql);
-            return results.rowCount;
+            return 200;
         } catch (err) {
             throw new Error(`Cannot create order ${err}`);
         }
     };
 
-    async addProduct(orderid: number, productId: number, quantity: number): Promise<number> {
+    async addProduct(orderId: number, productId: number, quantity: number): Promise<number> {
         try {
             const conn = await Client.connect();
-            const sql = `INSERT INTO order_products (orderid, productid, quantity) VALUES ('${orderid}', '${productId}', ${quantity})`;
+            const sql = `INSERT INTO order_products (orderid, productid, quantity) VALUES ('${orderId}', '${productId}', ${quantity})`;
             const results = await conn.query(sql);
-            return results.rowCount;
+            return 200;
         } catch (err) {
             throw new Error(`Cannot add product ${err}`)
         }

@@ -9,6 +9,26 @@ describe('test order route', () => {
         const resp = await request
             .get('/orders/show?id=1')
             .set('Authorization', token)
-            .expect(200);
+            expect(resp.status).toBe(200);
+    });
+
+    it('should return 1 for creating order', async () => {
+        const resp = await request
+            .post('/orders?id=1')
+            .set('Authorization', token)
+            expect(resp.status).toBe(200);
+    });
+
+    it('should return 1 for creating order', async () => {
+        const data = {
+            productId: 1,
+            quantity: 5
+        }
+
+        const resp = await request
+            .put('/orders?id=1')
+            .set('Authorization', token)
+            .send(data)
+            expect(resp.status).toBe(200);
     });
 })

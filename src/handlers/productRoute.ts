@@ -5,36 +5,42 @@ import {authJWT} from "./userRoute";
 const store = new ProductStore();
 
 const index = async (_req: Request, res: Response) => {
-    const products = await store.index();
-    await res.json(products);
+    try {
+        const products = await store.index();
+        await res.json(products);
+    } catch (err) {
+        throw new Error(`Cannot get product index ${err}`);
+    }
 }
 
 const single = async (req: Request, res: Response) => {
-    const productId: number = parseInt(<string>req.query.id);
-    const product = await store.single(productId);
-    await res.json(product);
+    try {
+        const productId: number = parseInt(<string>req.query.id);
+        const product = await store.single(productId);
+        await res.json(product);
+    } catch (err) {
+        throw new Error(`Cannot get product single ${err}`);
+    }
 }
 
 const create = async (req: Request, res: Response) => {
-    const tokenHeader = req.headers['authorization'];
-    const token = tokenHeader!.split(' ');
-    const authCheck = authJWT(token[1]!);
-    if (authCheck) {
+    try {
         const name = req.body.name;
         const price = req.body.price;
         if (name && price) {
             const resp = await store.create(name, price);
             res.json({msg: 'success'});
         }
-    } else {
-        res.json({msg: 'auth fail'});
+
+    } catch (err) {
+        throw new Error(`Cannot get product create ${err}`);
     }
 }
 
 const productIndexRoutes = (app: express.Application) => {
     app.post('/products', create)
     app.get('/products/show', single)
-    app.get('/products', index)
+    app.get('/products', authJWT, index)
 }
 
 export default productIndexRoutes;
