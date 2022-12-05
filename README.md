@@ -2,7 +2,7 @@
 
 ## Instructions
 
-* install required technologies
+* install required technologies. postgres runs on port `5432`
 * clone repo `git clone https://github.com/drichards188/udacity-storefront-backend.git`
 * run `npm install` in repo
 * create `.env` file at root. copy this into it `POSTGRES_HOST=127.0.0.1

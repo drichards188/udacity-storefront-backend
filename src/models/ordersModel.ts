@@ -47,5 +47,27 @@ export class OrderStore {
         } catch (err) {
             throw new Error(`Cannot get product ${err}`);
         }
+    };
+
+    async create(userId: number):  Promise<number> {
+        try {
+            const conn = await Client.connect();
+            const sql = `INSERT INTO orders (userid, status) VALUES ('${userId}', 'active')`;
+            const results = await conn.query(sql);
+            return 200;
+        } catch (err) {
+            throw new Error(`Cannot create order ${err}`);
+        }
+    };
+
+    async addProduct(orderId: number, productId: number, quantity: number): Promise<number> {
+        try {
+            const conn = await Client.connect();
+            const sql = `INSERT INTO order_products (orderid, productid, quantity) VALUES ('${orderId}', '${productId}', ${quantity})`;
+            const results = await conn.query(sql);
+            return 200;
+        } catch (err) {
+            throw new Error(`Cannot add product ${err}`)
+        }
     }
 }
