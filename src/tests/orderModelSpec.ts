@@ -5,7 +5,6 @@ const store = new OrderStore();
 describe('Order model', () => {
     it('single method should return a product', async () => {
         const result = await store.single(1);
-        console.log('this is the result ' + JSON.stringify(result));
         expect(result).toBeDefined();
     });
 

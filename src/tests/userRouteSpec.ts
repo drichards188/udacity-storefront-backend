@@ -1,10 +1,15 @@
 import supertest from "supertest";
 import {app} from "../server";
+import {getToken} from "./orderRouteSpec";
 
 const request = supertest(app);
 
-const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiZGF2aWQiLCJpYXQiOjE2Njk3NDMxMjd9.XISGVLkut860DV-5-pNjwXkPjIIksaiC8ZuJWmd3fkc';
-describe('test user route', () => {
+describe('test user route',  () => {
+    let token:string;
+    beforeAll(async () => {
+        token = await getToken();
+    })
+
     it('should return all products', async () => {
         const resp = await request
             .get('/users')
